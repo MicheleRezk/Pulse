@@ -51,8 +51,13 @@ namespace Pulse.Infrastructure.Services
 
         public async Task UpdateUserAsync(User user)
         {
-            await DeleteUserAsync(user.Id);
-            _users.Add(user);
+            var retrievedUser = await GetUserByIdAsync(user.Id);
+            if (retrievedUser != null)
+            {
+                retrievedUser.FirstName = user.FirstName;
+                retrievedUser.LastName = user.LastName;
+                retrievedUser.Email = user.Email;
+            }
         }
     }
 }
