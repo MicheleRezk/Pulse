@@ -1,9 +1,20 @@
+using Microsoft.AspNetCore.Mvc;
 using Pulse.Application;
 using Pulse.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApiVersioning(config =>
+{
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+    config.ReportApiVersions = true;
+});
+builder.Services.AddControllers(options =>
+{
+    options.SuppressAsyncSuffixInActionNames = false;
+});
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 builder.Services.AddControllers();

@@ -9,7 +9,12 @@ namespace Pulse.Application
 {
     public static class Extensions
     {
-        //TODO: refactor to use AutoMapper
+        //TODO: refactor all mapping methods and use AutoMapper
+        public static UserDto AsDto(this User user)
+        {
+            var dto = new UserDto(user.Id, user.FirstName, user.LastName, user.Email);
+            return dto;
+        }
         public static CreateUserCommand AsCommand(this CreateUserDto userDto)
         {
             var user = new User

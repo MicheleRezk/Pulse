@@ -23,11 +23,12 @@ namespace Pulse.Infrastructure.Services
                 new User { Id = Guid.NewGuid(), FirstName="Rico", LastName ="Petzold", Email="r.petzold@gmail.com"},
             };
         }
-        public async Task CreateUserAsync(User user)
+        public async Task<User> CreateUserAsync(User user)
         {
             //Assume Database Response takes time
             await Task.Delay(DELAY);
             _users.Add(user);
+            return user;
         }
 
         public async Task DeleteUserAsync(Guid userId)

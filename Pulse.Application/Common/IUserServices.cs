@@ -10,7 +10,7 @@ namespace Pulse.Application.Common
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(Guid userId);
-        Task CreateUserAsync(User user);
+        Task<User> CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(Guid userId);
     }
