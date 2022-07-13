@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Pulse.Application;
+using Pulse.Core.Settings;
 using Pulse.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

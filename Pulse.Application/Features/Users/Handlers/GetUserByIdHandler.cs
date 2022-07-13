@@ -17,7 +17,7 @@ namespace Pulse.Application.Features.Users.Handlers
 
         public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _userServices.GetUserByIdAsync(request.userId);
+            return await _userServices.GetUserByIdAsync(request.UserId);
         }
     }
 }

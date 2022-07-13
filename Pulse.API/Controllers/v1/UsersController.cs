@@ -10,17 +10,17 @@ namespace Pulse.API.Controllers.v1
     public class UsersController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] bool bypassCache = false)
         {
-            var users = await Mediator.Send(new GetAllUsersQuery());
+            var users = await Mediator.Send(new GetAllUsersQuery(bypassCache));
             var response = users.Select(user => user.AsDto());
             return Ok(response);
         }
       
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdAsync(Guid id)
+        public async Task<IActionResult> GetByIdAsync(Guid id, [FromQuery] bool bypassCache = false)
         {
-            var user = await Mediator.Send(new GetUserByIdQuery(id));
+            var user = await Mediator.Send(new GetUserByIdQuery(id, bypassCache));
             if(user == null)
             {
                 return NotFound();
@@ -39,7 +39,7 @@ namespace Pulse.API.Controllers.v1
         [HttpPut("{id}")]
         public async Task<IActionResult> PutByIdAsync(Guid id, UpdateUserDto updateUserDto)
         {
-            var user = await Mediator.Send(new GetUserByIdQuery(id));
+            var user = await Mediator.Send(new GetUserByIdQuery(id, true));
             if (user == null)
             {
                 return NotFound();
@@ -52,7 +52,7 @@ namespace Pulse.API.Controllers.v1
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var user = await Mediator.Send(new GetUserByIdQuery(id));
+            var user = await Mediator.Send(new GetUserByIdQuery(id,true));
             if (user == null)
             {
                 return NotFound();
